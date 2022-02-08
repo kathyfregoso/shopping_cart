@@ -95,7 +95,7 @@ const CartItem = require("../models/cartItem");
 router.get("/products", (req, res, next) => {
   Product.find({})
     .then((products) => res.json(products))
-    .catch(next);
+    .catch((error) => console.log(error));
 });
 
 router.post("/products", (req, res, next) => {
@@ -131,7 +131,7 @@ router.delete("/products/:id", (req, res, next) => {
     .then(() => {
       res.json();
     })
-    .catch((err) => next(err));
+    .catch(next);
 });
 
 router.post("/add-to-cart", (req, res, next) => {
