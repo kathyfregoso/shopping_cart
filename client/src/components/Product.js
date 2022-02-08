@@ -3,16 +3,16 @@ import Button from "./Button";
 
 const Product = ({ title, price, quantity }) => {
   return (
-    <div class='product'>
-      <div class='product-details'>
+    <div className='product'>
+      <div className='product-details'>
         <h3>{title}</h3>
-        <p class='price'>{price}</p>
-        <p class='quantity'>{quantity} left in stock</p>
-        <div class='actions product-actions'>
-          <Button className='button add-to-cart' name='Add to Cart' />
-          <Button className='button edit' name='Edit' />
+        <p className='price'>{price}</p>
+        <p className='quantity'>{quantity} left in stock</p>
+        <div className='actions product-actions'>
+          <Button name='button add-to-cart' text='Add to Cart' />
+          <Button name='button edit' text='Edit' />
         </div>
-        <Button className='delete-button' name='X' />
+        <Button name='delete-button' text='X' />
       </div>
     </div>
   );

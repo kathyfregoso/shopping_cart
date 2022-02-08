@@ -16,12 +16,12 @@ const Cart = () => {
           <CartItem />
         </tr>
         <tr>
-          <td colspan='3' class='total'>
+          <td colspan='3' className='total'>
             Total: $729.98
           </td>
         </tr>
       </table>
-      <Button className='button checkout' name='Checkout' />
+      <Button name='button checkout' text='Checkout' />
     </div>
   );
 };

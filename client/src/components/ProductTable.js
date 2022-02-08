@@ -8,7 +8,7 @@ const ProductTable = ({ products }) => {
       <main>
         <Products products={products} />
         <div class='add-form'>
-          <Button className='button add-product-button' name='Add a Product' />
+          <Button name='button add-product-button' text='Add a Product' />
         </div>
       </main>
     </>
