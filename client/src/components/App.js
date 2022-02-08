@@ -1,18 +1,23 @@
 import React, { useEffect, useState } from "react";
 import ShopHeader from "./ShopHeader";
 import ProductTable from "./ProductTable";
-import data from "../lib/data";
+import productService from "../services/productService";
 
 const App = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    setProducts(data);
+    const getAllProducts = async () => {
+      let data = await productService.getProducts();
+      setProducts(data);
+    };
+    getAllProducts();
   }, []);
+
   return (
-    <div id='app'>
+    <div id="app">
       <ShopHeader />
-      <ProductTable products={products} />
+      <ProductTable products={products} setProducts={setProducts} />
     </div>
   );
 };
