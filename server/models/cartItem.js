@@ -19,7 +19,7 @@ const CartItemSchema = new Schema(
     },
     productId: {
       type: ObjectId,
-      ref: "Product",
+      ref: "product",
     },
   },
   { timestamps: true }

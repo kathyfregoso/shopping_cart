@@ -1,15 +1,28 @@
 import React from "react";
 import Product from "./Product";
+import productService from "../services/productService";
 
-const Products = ({ products }) => {
+const Products = ({ products, setProducts }) => {
+  const handleUpdateProduct = async (updatedObject, id) => {
+    let newProduct = await productService.editProduct(id, updatedObject);
+    let newProductList = products.map((product) =>
+      product._id === id ? newProduct : product
+    );
+    setProducts(newProductList);
+  };
+
   return (
-    <div class='product-listing'>
+    <div className="product-listing">
       <h2>Products</h2>
-      <div class='product'>
-        {products.map((product) => {
-          return <Product key={product.id} {...product} />;
-        })}
-      </div>
+      {products.map((product) => {
+        return (
+          <Product
+            key={product._id}
+            onUpdate={handleUpdateProduct}
+            product={product}
+          />
+        );
+      })}
     </div>
   );
 };
