@@ -25,9 +25,16 @@ const editProduct = async (id, updatedObject) => {
   return request.then((response) => response.data);
 };
 
-export default {
+const deleteProduct = async(id) => {
+  const request = axios.delete(`${baseUrl}products/${id}`)
+  return request.then((response) => response.data)
+}
+
+const productService = {
   getProducts,
   getProduct,
   addProduct,
   editProduct,
-};
+  deleteProduct
+}
+export default productService

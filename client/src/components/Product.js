@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Button from "./Button";
 import EditProductForm from "./EditProductForm";
 
-const Product = ({ onUpdate, product }) => {
+const Product = ({ onUpdate, onDelete, product }) => {
   const [isEdit, setIsEdit] = useState(false);
 
   const handleToggle = () => {
@@ -18,6 +18,13 @@ const Product = ({ onUpdate, product }) => {
     onUpdate(updatedObject, product._id);
     handleToggle();
   };
+
+  const handleDelete = async (e) => {
+    e.preventDefault()
+    if (window.confirm(`By pressing OK "${product.title}" will be deleted`)) {
+      onDelete(product._id)
+    }
+  }
 
   return (
     <div className="product">
@@ -41,7 +48,7 @@ const Product = ({ onUpdate, product }) => {
             </>
           )}
         </div>
-        <Button name="delete-button" text="X" />
+        <Button onClick={handleDelete} name="delete-button" text="X" />
       </div>
     </div>
   );

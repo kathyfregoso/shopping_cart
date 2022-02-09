@@ -3,6 +3,7 @@ import Product from "./Product";
 import productService from "../services/productService";
 
 const Products = ({ products, setProducts }) => {
+
   const handleUpdateProduct = async (updatedObject, id) => {
     let newProduct = await productService.editProduct(id, updatedObject);
     let newProductList = products.map((product) =>
@@ -10,6 +11,12 @@ const Products = ({ products, setProducts }) => {
     );
     setProducts(newProductList);
   };
+
+  const handleDelete = async (id) => {
+    await productService.deleteProduct(id)
+    let newProductList = products.filter(product => product._id !== id)
+    setProducts(newProductList)
+  }
 
   return (
     <div className="product-listing">
@@ -19,6 +26,7 @@ const Products = ({ products, setProducts }) => {
           <Product
             key={product._id}
             onUpdate={handleUpdateProduct}
+            onDelete={handleDelete}
             product={product}
           />
         );
