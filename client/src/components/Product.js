@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Button from "./Button";
 import EditProductForm from "./EditProductForm";
 
-const Product = ({ onUpdate, onDelete, product }) => {
+const Product = ({ onUpdate, onDelete, onAdd, product }) => {
   const [isEdit, setIsEdit] = useState(false);
 
   const handleToggle = () => {
@@ -26,12 +26,33 @@ const Product = ({ onUpdate, onDelete, product }) => {
     }
   }
 
+  const handleAddToCart = (e) => {
+    e.preventDefault();
+    onAdd(product._id);
+  }
+
+  const addButtonState = () => {
+    let state = "button add-to-cart"
+    if (product.quantity === 0) {
+      state += " disabled"
+    }
+    return state  
+  }
+
+  const quantityClass = () => {
+    let classState = "quantity"
+    if (product.quantity === 0) {
+      classState += " none-left"
+    }
+    return classState
+  }
+
   return (
     <div className="product">
       <div className="product-details">
         <h3>{product.title}</h3>
-        <p className="price">{product.price}</p>
-        <p className="quantity">{product.quantity} left in stock</p>
+        <p className="price">{`$ ${product.price}`}</p>
+        <p className={quantityClass()}>{product.quantity} left in stock</p>
         <div className="actions product-actions">
           {isEdit ? (
             <EditProductForm
@@ -43,7 +64,7 @@ const Product = ({ onUpdate, onDelete, product }) => {
             />
           ) : (
             <>
-              <Button name="button add-to-cart" text="Add to Cart" />
+              <Button onClick={handleAddToCart} name={addButtonState()} text="Add to Cart" />
               <Button onClick={handleClick} name="button edit" text="Edit" />
             </>
           )}

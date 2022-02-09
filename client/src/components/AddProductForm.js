@@ -28,7 +28,7 @@ const AddProductForm = ({ products, setProducts, handleClick }) => {
         <input
           type="text"
           id="product-name"
-          name="name"
+          name="product-name"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
@@ -39,6 +39,7 @@ const AddProductForm = ({ products, setProducts, handleClick }) => {
         <input
           type="text"
           id="product-price"
+          name="product-price"
           value={price}
           onChange={(e) => setPrice(e.target.value)}
         />
@@ -49,13 +50,14 @@ const AddProductForm = ({ products, setProducts, handleClick }) => {
         <input
           type="text"
           id="product-quantity"
+          name="product-quantity"
           value={quantity}
           onChange={(e) => setQuantity(e.target.value)}
         />
       </div>
 
       <div className="actions form-actions">
-        <Button onClick={handleSubmit} name="button" text="Add" />
+        <Button onClick={handleSubmit} name="button" text="Add" testId="submit"/>
         <Button onClick={handleClick} name="button" text="Cancel" />
       </div>
     </form>
