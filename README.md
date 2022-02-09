@@ -56,8 +56,15 @@ For the initial application data, you can start with the following list of produ
     price: 13.74
   }
 ]
+
+curl -X POST -H "Content-Type: application/json" \
+    -d '{"title": "Yamaha Portable Keyboard", "quantity": "2", "price": "155.99"}' \
+    http://localhost:3001/api/products
 ```
 
 ## API
 
 https://app.swaggerhub.com/apis-docs/srki.coric/Shopping_Cart/1.0.0
+
+
+

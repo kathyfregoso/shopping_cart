@@ -2,22 +2,31 @@ import React, { useEffect, useState } from "react";
 import ShopHeader from "./ShopHeader";
 import ProductTable from "./ProductTable";
 import productService from "../services/productService";
+import cartService from "../services/cartService";
 
 const App = () => {
   const [products, setProducts] = useState([]);
+  const [cart, setCart] = useState([]);
 
   useEffect(() => {
     const getAllProducts = async () => {
       let data = await productService.getProducts();
       setProducts(data);
     };
+
+    const getCartItems = async () => {
+      let data = await cartService.getCart();
+      setCart(data);
+    }
+
     getAllProducts();
+    getCartItems();
   }, []);
 
   return (
     <div id="app">
-      <ShopHeader />
-      <ProductTable products={products} setProducts={setProducts} />
+      <ShopHeader cart={cart} setCart={setCart} />
+      <ProductTable products={products} setProducts={setProducts} cart={cart} setCart={setCart} />
     </div>
   );
 };

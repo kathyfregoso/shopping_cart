@@ -3,7 +3,7 @@ import Products from "./Products";
 import Button from "./Button";
 import AddProductForm from "./AddProductForm";
 
-const ProductTable = ({ products, setProducts }) => {
+const ProductTable = ({ products, setProducts, cart, setCart }) => {
   const [isVisible, setIsVisible] = useState(false);
 
   const handleClick = (e) => {
@@ -14,7 +14,7 @@ const ProductTable = ({ products, setProducts }) => {
   return (
     <>
       <main>
-        <Products products={products} setProducts={setProducts} />
+        <Products products={products} setProducts={setProducts} cart={cart} setCart={setCart} />
         <div className={isVisible ? "add-form visible" : "add-form"}>
           <Button
             onClick={handleClick}

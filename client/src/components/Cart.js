@@ -1,8 +1,21 @@
 import React from "react";
 import CartItem from "./CartItem";
 import Button from "./Button";
+import cartService from "../services/cartService";
 
-const Cart = () => {
+const Cart = ({ cart, setCart }) => {
+  const handleCheckout = (e) => {
+    e.preventDefault();
+    cartService.checkout();
+    setCart([]);
+  }
+
+  const cartTotal = () => {
+    let sum = 0 
+    cart.forEach(item => sum += (item.quantity * item.price))
+    return sum.toFixed(2)
+  }
+
   return (
     <div className="cart">
       <h2>Your Cart</h2>
@@ -15,17 +28,23 @@ const Cart = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <CartItem />
-          </tr>
+          
+            {cart.map(item => {
+              return (
+                <tr><CartItem
+                  key={item._id} cItem={item} 
+                /></tr>
+              );
+            })}
+          
           <tr>
             <td colSpan="3" className="total">
-              Total: $729.98
+             {`Total: $${cartTotal()}`}
             </td>
           </tr>
         </tbody>
       </table>
-      <Button name="button checkout" text="Checkout" />
+      <Button onClick={handleCheckout} name="button checkout" text="Checkout" />
     </div>
   );
 };

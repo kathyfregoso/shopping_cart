@@ -1,11 +1,11 @@
 import React from "react";
 
-const CartItem = () => {
+const CartItem = ({cItem}) => {
   return (
     <>
-      <td>Apple 10.5-Inch iPad Pro</td>
-      <td>1</td>
-      <td>$649.99</td>
+      <td>{cItem.title}</td>
+      <td>{cItem.quantity}</td>
+      <td>{cItem.price.toFixed(2)}</td>
     </>
   );
 };
