@@ -11,7 +11,3 @@ const CartItem = ({cItem}) => {
 };
 
 export default CartItem;
-
-/* 
-table with Item, Quantity and Price;
-*/

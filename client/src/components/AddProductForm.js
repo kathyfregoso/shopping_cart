@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 import Button from "./Button";
 import productService from "../services/productService";
+import { useDispatch } from "react-redux";
+import { addProduct } from "../actions/productsActions"
 
 const AddProductForm = ({ products, setProducts, handleClick }) => {
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const [quantity, setQuantity] = useState("");
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     let data = await productService.addProduct({ title, price, quantity });
-    setProducts(products.concat(data));
+    dispatch(addProduct(data))
     resetInputs();
     handleClick(e);
   };
