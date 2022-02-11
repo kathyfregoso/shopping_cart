@@ -1,9 +1,23 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import Button from "./Button";
 import EditProductForm from "./EditProductForm";
+import { addItemToCart } from "../actions/cartActions"
+import { useDispatch } from "react-redux";
+import { deleteProduct } from "../actions/productsActions";
+import productService from "../services/productService";
+import cartService from "../services/cartService";
 
-const Product = ({ onUpdate, onDelete, onAdd, product }) => {
-  const [isEdit, setIsEdit] = useState(false);
+const Product = ({ product }) => {
+ const [isEdit, setIsEdit] = useState(false);
+  const dispatch = useDispatch();
+
+  const handleAddToCart = async (e) => {
+    e.preventDefault();
+    let id = product._id
+    let item = {};
+    ({ product, item } = await cartService.addToCart(id));
+    dispatch(addItemToCart( { product, item }));
+  }
 
   const handleToggle = () => {
     setIsEdit(!isEdit);
@@ -14,21 +28,12 @@ const Product = ({ onUpdate, onDelete, onAdd, product }) => {
     handleToggle();
   };
 
-  const handleSubmit = async (updatedObject) => {
-    onUpdate(updatedObject, product._id);
-    handleToggle();
-  };
-
   const handleDelete = async (e) => {
     e.preventDefault()
     if (window.confirm(`By pressing OK "${product.title}" will be deleted`)) {
-      onDelete(product._id)
+      await productService.deleteProduct(product._id);
+      dispatch(deleteProduct(product));
     }
-  }
-
-  const handleAddToCart = (e) => {
-    e.preventDefault();
-    onAdd(product._id);
   }
 
   const addButtonState = () => {
@@ -56,11 +61,9 @@ const Product = ({ onUpdate, onDelete, onAdd, product }) => {
         <div className="actions product-actions">
           {isEdit ? (
             <EditProductForm
-              onSubmit={handleSubmit}
+              toggleEdit={handleToggle}
               cancelClick={handleClick}
-              title={product.title}
-              price={product.price}
-              quantity={product.quantity}
+              product={product}
             />
           ) : (
             <>

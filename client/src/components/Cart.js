@@ -1,14 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CartItem from "./CartItem";
 import Button from "./Button";
 import cartService from "../services/cartService";
+import { cartItemsReceived, checkout } from "../actions/cartActions";
+import { useDispatch, useSelector } from "react-redux";
 
-const Cart = ({ cart, setCart }) => {
+const Cart = () => {
+  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart);
+
   const handleCheckout = (e) => {
     e.preventDefault();
     cartService.checkout();
-    setCart([]);
+    dispatch(checkout())
   }
+
+  useEffect(() => {
+    const getCartItems = async () => {
+      let data = await cartService.getCart();
+      dispatch(cartItemsReceived(data));
+    }
+
+    getCartItems();
+  }, [dispatch]);
 
   const cartTotal = () => {
     let sum = 0 
@@ -31,9 +45,7 @@ const Cart = ({ cart, setCart }) => {
           
             {cart.map(item => {
               return (
-                <tr><CartItem
-                  key={item._id} cItem={item} 
-                /></tr>
+                <tr key={item._id}><CartItem cItem={item} /></tr>
               );
             })}
           
